@@ -1,0 +1,28 @@
+.listing-card{
+    border: none !important;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.listing-card:hover{
+    transform: scale(1.02);
+}
+
+.listing-img{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    height: 20rem;
+}
+
+.card-body{
+    padding: 1rem 0 !important;
+}
+
+.card-text{
+    font-weight: 500;
+}
+
+.btn-dark{
+    border-radius: 0.5rem !important;
+}
