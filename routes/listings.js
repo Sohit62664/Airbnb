@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Listing = require("../models/listing");
+const { isLoggedIn, isOwner } = require("../middleware/auth.js");
 
 
 
@@ -11,19 +12,22 @@ router.get("/", async (req, res) => {
     res.render("listings/index.ejs", { allListings });
 })
 
-router.get("/new", (req, res) => {
+
+// new Rout creat listing 
+router.get("/new", isLoggedIn, (req, res) => {
     res.render("listings/new.ejs");
 });
-//post rout
-router.post(("/"), async (req, res) => {
-    const newlisting = new Listing(req.body.listing);
-    // console.log(listing);
-    await newlisting.save();
-    res.redirect("/listings")
-})
+//post rout creat listing 
+router.post("/", isLoggedIn, async (req, res) => {
+    const newListing = new Listing(req.body.listing);
+    newListing.owner = req.user._id;
+    await newListing.save();
+    req.flash("success", "New Listing Created!");
+    res.redirect("/listings");
+});
 
 // Edit Rout
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", isLoggedIn, isOwner, async (req, res) => {
     let { id } = req.params;
 
     let listing = await Listing.findById(id);
@@ -34,7 +38,7 @@ router.get("/:id/edit", async (req, res) => {
 
 
 // Update Route
-router.put("/:id", async (req, res) => {
+router.put("/:id", isLoggedIn, isOwner, async (req, res) => {
     let { id } = req.params;
 
     await Listing.findByIdAndUpdate(id, req.body.listing);
@@ -45,7 +49,7 @@ router.put("/:id", async (req, res) => {
 
 
 //Delete Rout
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isLoggedIn, isOwner, async (req, res) => {
     let { id } = req.params;
 
     await Listing.findByIdAndDelete(id);
@@ -55,4 +59,3 @@ router.delete("/:id", async (req, res) => {
 
 
 module.exports = router;
-    

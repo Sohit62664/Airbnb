@@ -1,28 +1,57 @@
 const mongoose = require("mongoose");
-const initData = require("./data.js");
-const Listing = require("../models/Listing.js");
+const Listing = require("../models/listing.js");
+const User = require("../models/user.js");
+const { data } = require("./data.js");
 
-// Connecting Databaces 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
-// calling to the main Function 
-main().then(()=>{
-    console.log("Connected to DB");
-}).catch((err) =>{
-    console.log(err);
-})
-
-async function main(){
+async function main() {
     await mongoose.connect(MONGO_URL);
+    console.log("Connected to DB");
 }
 
+const initDB = async () => {
 
+    // Delete old data
+    await Listing.deleteMany({});
+    await User.deleteMany({});
 
-const initDB = async()=>{
-    await Listing.deleteMany();
-    await Listing.insertMany(initData.data);
-    console.log("Data was Initialized ");
-}
+    // Create one user for each listing
+    const users = [];
 
+    for (let i = 1; i <= data.length; i++) {
 
-initDB();
+        const user = new User({
+            username: `host${i}`,
+            email: `host${i}@example.com`
+        });
+
+        const registeredUser = await User.register(
+            user,
+            "password123"
+        );
+
+        users.push(registeredUser);
+    }
+
+    // Give each listing its own owner
+    const listings = data.map((listing, index) => ({
+        ...listing,
+        owner: users[index]._id
+    }));
+
+    await Listing.insertMany(listings);
+
+    console.log("Database initialized successfully!");
+    console.log(`${users.length} users created`);
+    console.log(`${listings.length} listings created`);
+};
+
+main()
+    .then(initDB)
+    .then(() => {
+        mongoose.connection.close();
+    })
+    .catch((err) => {
+        console.log(err);
+    });
