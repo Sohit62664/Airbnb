@@ -1,38 +1,106 @@
-<% layout("/layouts/boilerplate")%>
+<% layout("/layouts/boilerplate") %>
 
-    <div class="row mt-3">
+    <div class="auth-page">
 
-        <h1 class="col-6 offset-3">Signup on WanderLust</h1>
-        <div class="col-6 offset-3">
+        <div class="auth-card">
 
-            <form action="/signup" method="post" class="needs-validation" novalidate>
-                <div class="mb-3 ">
-                    <label class="form-label">username</label>
-                    <input type="text" 
-                    name="username" 
-                    id="username"
-                    required 
-                    class="form-control new-form">
-                </div> 
-                <div class="mb-3 ">
-                    <label class="form-label">Email</label>
-                    <input type="email" 
-                    name="email" 
-                    id="email"
-                    required 
-                    class="form-control new-form">
-                </div> 
-                <div class="mb-3 ">
-                    <label class="form-label">Password</label>
-                    <input type="password" 
-                    name="password" 
-                    id="password"
-                    required 
-                    class="form-control new-form">
-                </div> 
+            <!-- Icon -->
 
-                <button class="btn btn-success">Signup</button>
+            <div class="auth-icon">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+
+
+            <!-- Header -->
+
+            <h1 class="auth-title">
+                Create your account
+            </h1>
+
+            <p class="auth-subtitle">
+                Join Wanderlust and start exploring amazing stays.
+            </p>
+
+
+            <!-- Signup Form -->
+
+            <form action="/signup" method="POST" class="needs-validation" novalidate>
+
+                <!-- Username -->
+
+                <div class="mb-3">
+
+                    <label for="username" class="auth-label">
+                        Username
+                    </label>
+
+                    <input type="text" name="username" id="username" class="auth-input" placeholder="Choose a username"
+                        autocomplete="username" required>
+
+                    <div class="invalid-feedback">
+                        Please enter a username.
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="mb-3">
+
+                    <label for="email" class="auth-label">
+                        Email
+                    </label>
+
+                    <input type="email" name="email" id="email" class="auth-input" placeholder="Enter your email"
+                        autocomplete="email" required>
+
+                    <div class="invalid-feedback">
+                        Please enter a valid email address.
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="mb-3">
+
+                    <label for="password" class="auth-label">
+                        Password
+                    </label>
+
+                    <input type="password" name="password" id="password" class="auth-input"
+                        placeholder="Create a password" autocomplete="new-password" required>
+
+                    <div class="invalid-feedback">
+                        Please enter a password.
+                    </div>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button type="submit" class="auth-submit">
+                    Create Account
+                </button>
+
             </form>
+
+
+            <!-- Login Link -->
+
+            <div class="auth-footer">
+
+                Already have an account?
+
+                <a href="/login">
+                    Login
+                </a>
+
+            </div>
+
         </div>
 
     </div>

@@ -63,6 +63,8 @@ router.post("/", isLoggedIn, async (req, res) => {
         const searchLocation =
             `${req.body.listing.location}, ${req.body.listing.country}`;
 
+
+        // console.log("LOCATION SENT:", searchLocation);
         // Geocode location
         const response = await fetch(
             `https://nominatim.openstreetmap.org/search?` +
@@ -76,6 +78,7 @@ router.post("/", isLoggedIn, async (req, res) => {
         );
 
         const data = await response.json();
+        // console.log("NOMINATIM DATA:", data);
 
         if (data.length > 0) {
             newListing.locationCoordinates = {
@@ -169,11 +172,71 @@ router.get("/:id/edit", isLoggedIn, isOwner, async (req, res) => {
 
 // Update Route
 router.put("/:id", isLoggedIn, isOwner, async (req, res) => {
-    let { id } = req.params;
+    try {
+        const { id } = req.params;
 
-    await Listing.findByIdAndUpdate(id, req.body.listing);
+        const listing = await Listing.findById(id);
 
-    res.redirect(`/listings/${id}`);
+        if (!listing) {
+            req.flash("error", "Listing not found!");
+            return res.redirect("/listings");
+        }
+
+        // Update basic listing information
+        listing.title = req.body.listing.title;
+        listing.description = req.body.listing.description;
+        listing.image = req.body.listing.image;
+        listing.price = req.body.listing.price;
+        listing.location = req.body.listing.location;
+        listing.country = req.body.listing.country;
+
+
+        // =========================
+        // RE-GEOCODE LOCATION
+        // =========================
+
+        const searchLocation =
+            `${listing.location}, ${listing.country}`;
+
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?` +
+            `q=${encodeURIComponent(searchLocation)}` +
+            `&format=jsonv2&limit=1`,
+            {
+                headers: {
+                    "User-Agent": "Wanderlust/1.0"
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.length > 0) {
+
+            listing.locationCoordinates = {
+                lat: Number(data[0].lat),
+                lng: Number(data[0].lon)
+            };
+
+        }
+
+        await listing.save();
+
+        req.flash("success", "Listing updated successfully!");
+
+        res.redirect(`/listings/${id}`);
+
+    } catch (err) {
+
+        console.log(err);
+
+        req.flash(
+            "error",
+            "Something went wrong while updating the listing."
+        );
+
+        res.redirect(`/listings/${req.params.id}/edit`);
+    }
 });
 
 

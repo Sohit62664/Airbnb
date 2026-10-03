@@ -1,14 +1,200 @@
 <% layout("layouts/boilerplate") %>
 
-<div class="container mt-5">
-    <div class="text-center">
-        <h1>Welcome to WanderLust</h1>
-        <p class="lead">
-            Explore amazing destinations around the world.
-        </p>
+    <div class="home-page">
 
-        <a href="/listings" class="btn btn-dark mt-3">
-            Explore Listings
-        </a>
+        <!-- =========================
+         HERO SECTION
+    ========================== -->
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <div class="hero-text">
+
+                    <span class="hero-badge">
+                        <i class="fa-solid fa-compass"></i>
+                        Discover new places
+                    </span>
+
+                    <h1 class="hero-title">
+                        Find a place
+                        <span>worth staying for.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Explore beautiful stays, discover new destinations,
+                        and find your perfect place to stay with Wanderlust.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a href="/listings" class="hero-primary-btn">
+                            Explore Listings
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                        <% if (currUser) { %>
+
+                            <a href="/listings/new" class="hero-secondary-btn">
+                                <i class="fa-solid fa-plus"></i>
+                                Add a Listing
+                            </a>
+
+                            <% } else { %>
+
+                                <a href="/signup" class="hero-secondary-btn">
+                                    Join Wanderlust
+                                </a>
+
+                                <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Hero Image -->
+
+                <div class="hero-image-wrapper">
+
+                    <img src="https://images.unsplash.com/photo-1601918774946-25832a4be0d6?auto=format&fit=crop&w=1200&q=85"
+                        alt="Beautiful vacation stay" class="hero-image">
+
+                    <div class="hero-image-card">
+
+                        <div class="hero-image-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+
+                        <div>
+                            <strong>Explore the world</strong>
+                            <p>One stay at a time.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+         FEATURES
+    ========================== -->
+
+        <section class="features-section">
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    WHY WANDERLUST
+                </span>
+
+                <h2>
+                    Everything you need for your next stay.
+                </h2>
+
+                <p>
+                    Discover stays, explore destinations, and make
+                    every trip memorable.
+                </p>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <div class="col-md-4">
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+
+                        <h3>Unique Stays</h3>
+
+                        <p>
+                            Discover unique places to stay in destinations
+                            around the world.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+
+                        <h3>Great Locations</h3>
+
+                        <p>
+                            Find stays in locations that put you closer
+                            to the places you want to explore.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+
+                        <h3>Guest Reviews</h3>
+
+                        <p>
+                            Read reviews from other guests and share
+                            your own travel experience.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+         CTA SECTION
+    ========================== -->
+
+        <section class="home-cta">
+
+            <div>
+
+                <h2>
+                    Ready for your next adventure?
+                </h2>
+
+                <p>
+                    Start exploring stays and find somewhere
+                    you'll love.
+                </p>
+
+            </div>
+
+            <a href="/listings" class="hero-primary-btn">
+                Explore Listings
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </section>
+
     </div>
-</div>

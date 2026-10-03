@@ -1,9 +1,14 @@
+/* =========================
+   FOOTER
+========================= */
 
-.f-info{
+.f-info {
     text-align: center;
-    margin-top: 1rem;
-    height: 8rem;
-    background-color: #ebebeb;
+    margin-top: 4rem;
+    min-height: 8rem;
+    padding: 1.5rem 1rem;
+
+    background-color: #f7f7f7;
 
     display: flex;
     flex-wrap: wrap;
@@ -16,7 +21,7 @@
 
 .f-info-socials,
 .f-info-links,
-.f-info-brand{
+.f-info-brand {
     width: 100%;
 
     display: flex;
@@ -24,28 +29,46 @@
     align-items: center;
 }
 
-.f-info-socials i{
+
+/* Social icons */
+
+.f-info-socials i {
     margin-right: 0.8rem;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
 }
 
-.f-info-socials a{
+.f-info-socials a {
     text-decoration: none;
     color: #222222;
-    transition: all 0.3s ease;
+
+    transition: all 0.2s ease;
 }
 
-.f-info-socials a:hover{
+.f-info-socials a:hover {
     color: #fe424d;
-    transform: scale(1.15);
+    transform: scale(1.1);
 }
 
-.f-info-links a{
+
+/* Footer links */
+
+.f-info-links a {
     text-decoration: none;
-    color: #222222;
+    color: #555555;
     margin-right: 1rem;
+
+    transition: color 0.2s ease;
 }
 
-.f-info-links a:hover{
+.f-info-links a:hover {
+    color: #222222;
     text-decoration: underline;
+}
+
+
+/* Footer brand */
+
+.f-info-brand {
+    color: #555555;
+    font-size: 0.9rem;
 }

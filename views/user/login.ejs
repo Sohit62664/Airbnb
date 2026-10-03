@@ -1,33 +1,80 @@
 <% layout("/layouts/boilerplate") %>
 
-    <div class="row mt-3">
-        <div class="col-md-6 offset-md-3">
+    <div class="auth-page">
 
-            <h3>Login</h3>
+        <div class="auth-card">
+
+            <!-- Icon -->
+
+            <div class="auth-icon">
+                <i class="fa-solid fa-right-to-bracket"></i>
+            </div>
+
+
+            <!-- Header -->
+
+            <h1 class="auth-title">
+                Welcome back
+            </h1>
+
+            <p class="auth-subtitle">
+                Login to continue your Wanderlust journey.
+            </p>
+
+
+            <!-- Login Form -->
 
             <form action="/login" method="POST">
 
+                <!-- Username -->
+
                 <div class="mb-3">
-                    <label for="username" class="form-label">
+
+                    <label for="username" class="auth-label">
                         Username
                     </label>
 
-                    <input type="text" name="username" id="username" class="form-control" required>
+                    <input type="text" name="username" id="username" class="auth-input"
+                        placeholder="Enter your username" autocomplete="username" required>
+
                 </div>
 
+
+                <!-- Password -->
+
                 <div class="mb-3">
-                    <label for="password" class="form-label">
+
+                    <label for="password" class="auth-label">
                         Password
                     </label>
 
-                    <input type="password" name="password" id="password" class="form-control" required>
+                    <input type="password" name="password" id="password" class="auth-input"
+                        placeholder="Enter your password" autocomplete="current-password" required>
+
                 </div>
 
-                <button class="btn btn-success">
+
+                <!-- Submit -->
+
+                <button type="submit" class="auth-submit">
                     Login
                 </button>
 
             </form>
 
+
+            <!-- Signup Link -->
+
+            <div class="auth-footer">
+
+                Don't have an account?
+
+                <a href="/signup">
+                    Sign up
+                </a>
+
+            </div>
+
         </div>
+
     </div>

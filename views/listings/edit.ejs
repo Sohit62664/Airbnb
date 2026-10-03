@@ -1,81 +1,139 @@
-<% layout("/layouts/boilerplate")%>
+<% layout("/layouts/boilerplate") %>
 
-<div class="container mt-5">
+    <div class="listing-form-page">
 
-    <div class="card shadow-lg p-4 rounded-4">
+        <div class="listing-form-card">
 
-        <h2 class="text-center text-primary mb-4">
-            Edit Listing
-        </h2>
+            <!-- Header -->
 
-        <form action="/listings/<%= listing._id %>?_method=PUT" method="POST">
+            <div class="listing-form-header">
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Title</label>
-                <input 
-                    type="text" 
-                    name="listing[title]" 
-                    value="<%= listing.title %>"
-                    class="form-control"
-                >
+                <div class="listing-form-icon">
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+
+                <h1 class="listing-form-title">
+                    Edit Listing
+                </h1>
+
+                <p class="listing-form-subtitle">
+                    Update the details of your listing.
+                </p>
+
             </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Description</label>
-                <input 
-                    type="text" 
-                    name="listing[description]" 
-                    value="<%= listing.description %>"
-                    class="form-control"
-                >
-            </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Image URL</label>
-                <input 
-                    type="text" 
-                    name="listing[image]" 
-                    value="<%= listing.image %>"
-                    class="form-control"
-                >
-            </div>
+            <!-- Form -->
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Price</label>
-                <input 
-                    type="number" 
-                    name="listing[price]" 
-                    value="<%= listing.price %>"
-                    class="form-control"
-                >
-            </div>
+            <form action="/listings/<%= listing._id %>?_method=PUT" method="POST">
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Country</label>
-                <input 
-                    type="text" 
-                    name="listing[country]" 
-                    value="<%= listing.country %>"
-                    class="form-control"
-                >
-            </div>
+                <div class="row">
 
-            <div class="mb-3">
-                <label class="form-label fw-bold">Location</label>
-                <input 
-                    type="text" 
-                    name="listing[location]" 
-                    value="<%= listing.location %>"
-                    class="form-control"
-                >
-            </div>
 
-            <button class="btn btn-success px-4">
-                Done
-            </button>
+                    <!-- Title -->
 
-        </form>
+                    <div class="col-md-6 mb-3">
+
+                        <label for="title" class="listing-form-label">
+                            Title
+                        </label>
+
+                        <input type="text" name="listing[title]" id="title" value="<%= listing.title %>"
+                            class="listing-form-input" required>
+
+                    </div>
+
+
+                    <!-- Price -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label for="price" class="listing-form-label">
+                            Price per night
+                        </label>
+
+                        <input type="number" name="listing[price]" id="price" value="<%= listing.price %>" min="0"
+                            class="listing-form-input" required>
+
+                    </div>
+
+
+                    <!-- Description -->
+
+                    <div class="col-12 mb-3">
+
+                        <label for="description" class="listing-form-label">
+                            Description
+                        </label>
+
+                        <textarea name="listing[description]" id="description" class="listing-form-input"
+                            required><%= listing.description %></textarea>
+
+                    </div>
+
+
+                    <!-- Image -->
+
+                    <div class="col-12 mb-3">
+
+                        <label for="image" class="listing-form-label">
+                            Image URL
+                        </label>
+
+                        <input type="url" name="listing[image]" id="image" value="<%= listing.image %>"
+                            class="listing-form-input">
+
+                    </div>
+
+
+                    <!-- Location -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label for="location" class="listing-form-label">
+                            Location
+                        </label>
+
+                        <input type="text" name="listing[location]" id="location" value="<%= listing.location %>"
+                            class="listing-form-input" required>
+
+                    </div>
+
+
+                    <!-- Country -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label for="country" class="listing-form-label">
+                            Country
+                        </label>
+
+                        <input type="text" name="listing[country]" id="country" value="<%= listing.country %>"
+                            class="listing-form-input" required>
+
+                    </div>
+
+
+                    <!-- Submit -->
+
+                    <div class="col-12 mt-3">
+
+                        <button type="submit" class="listing-submit-btn">
+                            <i class="fa-solid fa-check"></i>
+                            Save Changes
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <a href="/listings/<%= listing._id %>" class="listing-back-link">
+                ← Back to listing
+            </a>
+
+        </div>
 
     </div>
-
-</div>

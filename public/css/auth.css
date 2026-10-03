@@ -1,0 +1,189 @@
+/* =========================
+   AUTH PAGE
+========================= */
+
+.auth-page {
+    min-height: calc(100vh - 5rem);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3rem 1rem;
+}
+
+
+/* =========================
+   AUTH CARD
+========================= */
+
+.auth-card {
+    width: 100%;
+    max-width: 450px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 1.25rem;
+
+    padding: 2.5rem;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   AUTH HEADER
+========================= */
+
+.auth-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 1rem;
+
+    border-radius: 50%;
+
+    background-color: #fff1f2;
+
+    color: #fe424d;
+
+    font-size: 1.5rem;
+}
+
+.auth-title {
+    text-align: center;
+
+    font-size: 1.7rem;
+
+    font-weight: 700;
+
+    margin-bottom: 0.4rem;
+}
+
+.auth-subtitle {
+    text-align: center;
+
+    color: #777777;
+
+    font-size: 0.9rem;
+
+    margin-bottom: 2rem;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.auth-label {
+    display: block;
+
+    font-weight: 600;
+
+    font-size: 0.9rem;
+
+    margin-bottom: 0.5rem;
+}
+
+.auth-input {
+    width: 100%;
+
+    padding: 0.75rem 0.9rem;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 0.65rem;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.auth-input:focus {
+    border-color: #222222;
+
+    box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.08);
+}
+
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+
+.auth-submit {
+    width: 100%;
+
+    border: none;
+
+    background-color: #222222;
+
+    color: #ffffff;
+
+    padding: 0.8rem;
+
+    border-radius: 0.65rem;
+
+    font-weight: 600;
+
+    margin-top: 0.5rem;
+
+    transition: all 0.2s ease;
+}
+
+.auth-submit:hover {
+    background-color: #000000;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   BOTTOM LINK
+========================= */
+
+.auth-footer {
+    text-align: center;
+
+    margin-top: 1.5rem;
+
+    color: #777777;
+
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: #fe424d;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 576px) {
+
+    .auth-page {
+        padding: 2rem 1rem;
+    }
+
+    .auth-card {
+        padding: 2rem 1.3rem;
+    }
+
+}

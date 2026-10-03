@@ -1,51 +1,123 @@
-<% layout("/layouts/boilerplate")%>
-    <div class="container mt-4">
+<% layout("layouts/boilerplate") %>
 
-        <h2>My Listings</h2>
+    <div class="user-listings-page">
+
+        <!-- Header -->
+
+        <div class="user-listings-header">
+
+            <div>
+
+                <h1 class="user-listings-title">
+                    My Listings
+                </h1>
+
+                <p class="user-listings-subtitle">
+                    Manage the places you've added to Wanderlust.
+                </p>
+
+            </div>
+
+
+            <a href="/listings/new" class="btn btn-dark rounded-pill px-4">
+                <i class="fa-solid fa-plus"></i>
+                Add Listing
+            </a>
+
+        </div>
+
+
+        <!-- Empty -->
 
         <% if (myListings.length===0) { %>
 
-            <p>You haven't created any listings yet.</p>
+            <div class="user-listings-empty">
 
-            <a href="/listings/new" class="btn btn-dark">
-                Create Listing
-            </a>
+                <div class="user-listings-empty-icon">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+
+                <h3>
+                    You haven't created any listings yet.
+                </h3>
+
+                <p>
+                    Add your first property and share it with the Wanderlust community.
+                </p>
+
+                <a href="/listings/new" class="btn btn-dark rounded-pill px-4">
+                    Create Listing
+                </a>
+
+            </div>
+
 
             <% } else { %>
 
-                <div class="row">
+
+                <!-- Listings Grid -->
+
+                <div class="row g-4">
 
                     <% for (let listing of myListings) { %>
 
-                        <div class="col-md-4 mb-4">
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
 
-                            <div class="card">
+                            <div class="user-listing-card">
 
-                                <img src="<%= listing.image %>" class="card-img-top"
-                                    style="height: 200px; object-fit: cover;">
+                                <!-- Image -->
 
-                                <div class="card-body">
+                                <a href="/listings/<%= listing._id %>" class="user-listing-image-wrapper">
 
-                                    <h5 class="card-title">
+                                    <img src="<%= listing.image %>" class="user-listing-image"
+                                        alt="<%= listing.title %>">
+
+                                </a>
+
+
+                                <!-- Content -->
+
+                                <div class="user-listing-body">
+
+                                    <h5 class="user-listing-title">
                                         <%= listing.title %>
                                     </h5>
 
-                                    <p>
+
+                                    <p class="user-listing-location">
+
+                                        <i class="fa-solid fa-location-dot"></i>
+
                                         <%= listing.location %>,
                                             <%= listing.country %>
+
                                     </p>
 
-                                    <p>
-                                        ₹<%= listing.price %> / night
+
+                                    <p class="user-listing-price">
+
+                                        ₹<%= listing.price.toLocaleString("en-IN") %>
+
+                                            <span>
+                                                / night
+                                            </span>
+
                                     </p>
 
-                                    <a href="/listings/<%= listing._id %>" class="btn btn-primary">
-                                        View
-                                    </a>
 
-                                    <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">
-                                        Edit
-                                    </a>
+                                    <!-- Actions -->
+
+                                    <div class="user-listing-actions">
+
+                                        <a href="/listings/<%= listing._id %>" class="btn btn-dark">
+                                            View
+                                        </a>
+
+                                        <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-dark">
+                                            Edit
+                                        </a>
+
+                                    </div>
 
                                 </div>
 

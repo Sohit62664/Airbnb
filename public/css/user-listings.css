@@ -1,0 +1,238 @@
+/* =========================
+   USER LISTINGS PAGES
+========================= */
+
+.user-listings-page {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+}
+
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.user-listings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 2rem;
+}
+
+.user-listings-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+
+    margin-bottom: 0.3rem;
+}
+
+.user-listings-subtitle {
+    color: #777777;
+    margin: 0;
+}
+
+.listings-count {
+    background-color: #222222;
+    color: white;
+
+    padding: 0.5rem 0.9rem;
+
+    border-radius: 2rem;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+
+/* =========================
+   USER LISTING CARD
+========================= */
+
+.user-listing-card {
+    height: 100%;
+
+    border: none;
+
+    background: #ffffff;
+
+    border-radius: 1rem;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.user-listing-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+}
+
+
+/* =========================
+   CARD IMAGE
+========================= */
+
+.user-listing-image {
+    display: block;
+
+    width: 100%;
+    height: 220px;
+
+    object-fit: cover;
+
+    transition: transform 0.35s ease;
+}
+
+.user-listing-card:hover .user-listing-image {
+    transform: scale(1.04);
+}
+
+
+/* Image wrapper */
+
+.user-listing-image-wrapper {
+    overflow: hidden;
+}
+
+
+/* =========================
+   CARD BODY
+========================= */
+
+.user-listing-body {
+    padding: 1.2rem;
+}
+
+.user-listing-title {
+    font-size: 1.05rem;
+
+    font-weight: 600;
+
+    margin-bottom: 0.45rem;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.user-listing-location {
+    color: #717171;
+
+    font-size: 0.9rem;
+
+    margin-bottom: 0.6rem;
+}
+
+.user-listing-location i {
+    margin-right: 0.2rem;
+
+    color: #fe424d;
+}
+
+.user-listing-price {
+    font-size: 0.95rem;
+
+    font-weight: 600;
+
+    margin-bottom: 1rem;
+}
+
+.user-listing-price span {
+    color: #777777;
+
+    font-weight: 400;
+}
+
+
+/* =========================
+   CARD ACTIONS
+========================= */
+
+.user-listing-actions {
+    display: flex;
+
+    gap: 0.5rem;
+}
+
+.user-listing-actions .btn {
+    flex: 1;
+
+    border-radius: 0.6rem;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.user-listings-empty {
+    text-align: center;
+
+    padding: 5rem 1rem;
+
+    background-color: #f8f8f8;
+
+    border-radius: 1.2rem;
+}
+
+.user-listings-empty-icon {
+    font-size: 3.5rem;
+
+    color: #fe424d;
+
+    margin-bottom: 1rem;
+}
+
+.user-listings-empty h3 {
+    font-size: 1.3rem;
+
+    font-weight: 600;
+
+    margin-bottom: 0.5rem;
+}
+
+.user-listings-empty p {
+    color: #777777;
+
+    margin-bottom: 1.5rem;
+}
+
+
+/* =========================
+   FAVORITE HEART
+========================= */
+
+.favorite-heart {
+    color: #fe424d;
+
+    font-size: 1.4rem;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 576px) {
+
+    .user-listings-header {
+        align-items: flex-start;
+    }
+
+    .user-listings-title {
+        font-size: 1.5rem;
+    }
+
+    .user-listing-actions {
+        flex-direction: column;
+    }
+
+}

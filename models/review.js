@@ -14,8 +14,8 @@ const reviewSchema = new Schema({
         default: Date.now()
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId, // Learn this , how this refrence is Working
-        ref: "User" // From where it is getting the user  and how the id is connected to the user 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 });
 

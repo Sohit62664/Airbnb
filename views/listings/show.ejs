@@ -1,251 +1,503 @@
-<% layout("/layouts/boilerplate")%>
+<% layout("/layouts/boilerplate") %>
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
 
-        #map img {
-            max-width: none !important;
-        }
-    </style>
-    <div class="container mt-5">
+    <div class="show-page">
 
-        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+        <!-- =========================
+         LISTING
+    ========================== -->
 
-
-            <!-- Heading -->
-            <h2 class="card-title text-center text-primary fw-bold mb-4">
-                <%= listing.title %>
-            </h2>
-
+        <div class="show-listing">
 
             <!-- Listing Image -->
-            <img src="<%= listing.image %>" class="card-img-top listing-img" alt="listing_image"
-                style="max-height: 500px; width: 100%; object-fit: contain;">
 
-            <div class="card-body">
+            <img src="<%= listing.image %>" class="show-image" alt="<%= listing.title %>">
 
 
+            <!-- Listing Content -->
 
-                <!-- Details -->
-                <ul class="list-group list-group-flush fs-5">
+            <div class="show-content">
+
+                <!-- Title -->
+
+                <h1 class="show-title">
+                    <%= listing.title %>
+                </h1>
 
 
+                <!-- Location -->
 
-                    <li class="list-group-item py-3">
-                        <strong>Description :</strong>
-                        <%= listing.description %>
-                    </li>
+                <p class="show-location">
+                    <i class="fa-solid fa-location-dot"></i>
 
-                    <li class="list-group-item py-3">
-                        <strong>Price :</strong>
-                        &#8377; <%= listing.price.toLocaleString("en-IN") %>
-                    </li>
+                    <%= listing.location %>, <%= listing.country %>
+                </p>
 
-                    <li class="list-group-item py-3">
-                        <strong>Location :</strong>
-                        <%= listing.location %>
-                    </li>
 
-                    <li class="list-group-item py-3">
-                        <strong>Country :</strong>
-                        <%= listing.country %>
-                    </li>
+                <!-- Price -->
 
-                    <% if (listing.owner) { %>
-                        <li class="list-group-item py-3"> <strong>Listed by:</strong>
+                <p class="show-price">
+                    ₹ <%= listing.price.toLocaleString("en-IN") %>
+
+                        <span>/ night</span>
+                </p>
+
+
+                <!-- Description -->
+
+                <h3 class="show-section-title">
+                    About this place
+                </h3>
+
+                <p class="show-description">
+                    <%= listing.description %>
+                </p>
+
+
+                <!-- Host -->
+
+                <% if (listing.owner) { %>
+
+                    <div class="host-box">
+
+                        <div class="host-label">
+                            Listed by
+                        </div>
+
+                        <div class="host-name">
                             <%= listing.owner.username %>
-                        </li>
-                        <li class="list-group-item py-3"> <strong>Contact:</strong>
+                        </div>
+
+                        <div class="host-email">
                             <%= listing.owner.email %>
-                        </li>
-                        <% } %>
-
-                </ul>
-
-                <!-- Buttons -->
-                <% if (currUser && listing.owner && listing.owner.equals(currUser._id)) { %>
-
-                    <div class="d-flex gap-3 mt-4">
-
-                        <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger px-4">
-                                Delete
-                            </button>
-                        </form>
-
-                        <a href="/listings/<%= listing._id %>/edit">
-                            <button class="btn btn-warning px-4">
-                                Edit
-                            </button>
-                        </a>
+                        </div>
 
                     </div>
 
                     <% } %>
 
 
+                        <!-- Owner Actions -->
 
-                        <% if (currUser) { %>
+                        <% if ( currUser && listing.owner && listing.owner.equals(currUser._id) ) { %>
 
-                            <% const isFavorite=currUser.favorites.some( fav=> fav.toString() === listing._id.toString()
-                                ); %>
+                            <div class="show-actions">
 
-                                <% if (isFavorite) { %>
+                                <!-- Edit -->
 
-                                    <form method="POST" action="/listings/<%= listing._id %>/favorite?_method=DELETE">
+                                <a href="/listings/<%= listing._id %>/edit" class="btn btn-warning">
 
-                                        <button class="btn btn-danger d-flex gap-3 mt-4">
-                                            ♥ Remove from Favorites
-                                        </button>
+                                    <i class="fa-solid fa-pen"></i>
 
-                                    </form>
+                                    Edit
 
-                                    <% } else { %>
+                                </a>
 
-                                        <form method="POST" action="/listings/<%= listing._id %>/favorite">
 
-                                            <button class="btn btn-outline-danger mt-4">
-                                                ♡ Add to Favorites
-                                            </button>
+                                <!-- Delete -->
 
-                                        </form>
+                                <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
 
-                                        <% } %>
+                                    <button class="btn btn-danger">
 
-                                            <% } %>
+                                        <i class="fa-solid fa-trash"></i>
 
+                                        Delete
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                            <% } %>
+
+
+                                <!-- =========================
+                 FAVORITE
+            ========================== -->
+
+                                <% if (currUser) { %>
+
+                                    <% const isFavorite=currUser.favorites.some( fav=> fav.toString() ===
+                                        listing._id.toString()
+                                        ); %>
+
+
+                                        <% if (isFavorite) { %>
+
+                                            <form method="POST"
+                                                action="/listings/<%= listing._id %>/favorite?_method=DELETE">
+
+                                                <button class="btn btn-danger favorite-btn">
+
+                                                    <i class="fa-solid fa-heart"></i>
+
+                                                    Remove from Favorites
+
+                                                </button>
+
+                                            </form>
+
+
+                                            <% } else { %>
+
+                                                <form method="POST" action="/listings/<%= listing._id %>/favorite">
+
+                                                    <button class="btn btn-outline-danger favorite-btn">
+
+                                                        <i class="fa-regular fa-heart"></i>
+
+                                                        Add to Favorites
+
+                                                    </button>
+
+                                                </form>
+
+                                                <% } %>
+
+                                                    <% } %>
 
             </div>
 
         </div>
-        <% if (listing.locationCoordinates && listing.locationCoordinates.lat && listing.locationCoordinates.lng) { %>
 
-            <hr class="my-5">
 
-            <h3 class="mb-3">Location</h3>
+        <!-- =========================
+         LOCATION
+    ========================== -->
 
-            <div id="map" class="rounded-3 shadow-sm" style="height: 400px; width: 100%;">
-            </div>
+        <div class="location-section">
 
-            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+            <h2 class="location-title">
+                Location
+            </h2>
 
-            <script>
-                const lat = <%= listing.locationCoordinates.lat %>;
-                const lng = <%= listing.locationCoordinates.lng %>;
 
-                const map = L.map("map").setView([lat, lng], 13);
+            <% if ( listing.locationCoordinates && listing.locationCoordinates.lat && listing.locationCoordinates.lng )
+                { %>
 
-                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                    attribution: '&copy; OpenStreetMap contributors'
-                }).addTo(map);
+                <div id="map" class="map-container"></div>
 
-                L.marker([lat, lng])
-                    .addTo(map)
-                    .bindPopup("<%= listing.title %>")
-                    .openPopup();
-            </script>
+                <% } else { %>
 
-            <% } else { %>
+                    <div class="alert alert-warning">
 
-                <hr class="my-5">
+                        Location map is not available for this listing.
 
-                <h3 class="mb-3">Location</h3>
-
-                <div class="alert alert-warning">
-                    Location map is not available for this listing.
-                </div>
-
-                <% } %>
-                    <div class="coll-8 offset-3">
-                        <h4>Leave a Review</h4>
-
-                        <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate
-                            class="needs-validation">
-                            <div class="mmb-3 mt-8">
-                                <label for="rating">Ratings</label>
-                                <input type="range" min="1" max="5" id="rating" name="review[rating]">
-
-                                <label for="comment" class="form-control">Comment</label>
-                                <textarea name="review[comment]" id="comment" rows="4" cols="50" class="form-control"
-                                    required></textarea>
-                                <div class="invalid-feedback">Please add some comment to sumbmit Review</div>
-                                <button class="d-flex gap-3 mt-4">Submit</button>
-                            </div>
-                        </form>
                     </div>
 
-                    <hr>
+                    <% } %>
+
+        </div>
 
 
+        <!-- =========================
+         REVIEW FORM
+    ========================== -->
+
+        <% if (currUser) { %>
+
+            <div class="review-section">
+
+                <h2 class="reviews-title">
+                    Leave a Review
+                </h2>
 
 
+                <div class="review-box">
+
+                    <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate
+                        class="needs-validation">
+
+                        <!-- =========================
+                         STAR RATING
+                    ========================== -->
+
+                        <div class="mb-3">
+
+                            <label class="review-label">
+                                Rating
+                            </label>
 
 
-                    <!-- <h4>All Reviews</h4> -->
+                            <div class="star-rating">
 
-                    <h4 class="mb-3">All Reviews</h4>
+                                <!-- 5 -->
 
-                    <% let count=1; %>
+                                <input type="radio" id="star5" name="review[rating]" value="5">
 
-                        <div class="row">
-                            <% for(let rev of listing.reviews){ %>
+                                <label for="star5">
+                                    ★
+                                </label>
 
-                                <div class="col-md-6 mb-3">
-                                    <div class="card shadow-sm">
-                                        <div class="card-body" style="margin-left: 1%;">
 
-                                            <h5 class="card-title">
-                                                Review <%= count %>
-                                            </h5>
+                                <!-- 4 -->
 
-                                            <!-- Review Author -->
-                                            <% if (rev.author) { %>
-                                                <p class="card-text">
-                                                    <strong>Reviewed by:</strong>
-                                                    <%= rev.author.username %>
-                                                </p>
-                                                <% } %>
+                                <input type="radio" id="star4" name="review[rating]" value="4">
 
-                                                    <p class="card-text">
-                                                        <strong>Rating:</strong>
-                                                        <span class="badge bg-success">
-                                                            <%= rev.rating %> ★
-                                                        </span>
-                                                    </p>
+                                <label for="star4">
+                                    ★
+                                </label>
 
-                                                    <p class="card-text">
-                                                        <strong>Comment:</strong>
-                                                        <%= rev.comment %>
-                                                    </p>
 
-                                                    <!-- Delete only for review author -->
-                                                    <% if (currUser && rev.author &&
-                                                        rev.author._id.equals(currUser._id)) { %>
+                                <!-- 3 -->
 
-                                                        <div class="d-flex justify-content-end me-3">
-                                                            <form method="POST"
-                                                                action="/listings/<%= listing._id %>/reviews/<%= rev._id %>?_method=DELETE">
+                                <input type="radio" id="star3" name="review[rating]" value="3">
 
-                                                                <button class="btn btn-danger btn-sm">
-                                                                    Delete
-                                                                </button>
+                                <label for="star3">
+                                    ★
+                                </label>
 
-                                                            </form>
-                                                        </div>
 
-                                                        <% } %>
+                                <!-- 2 -->
 
-                                        </div>
-                                    </div>
-                                </div>
+                                <input type="radio" id="star2" name="review[rating]" value="2">
 
-                                <% count++; %>
+                                <label for="star2">
+                                    ★
+                                </label>
 
-                                    <% } %>
+
+                                <!-- 1 -->
+
+                                <input type="radio" id="star1" name="review[rating]" value="1">
+
+                                <label for="star1">
+                                    ★
+                                </label>
+
+                            </div>
+
                         </div>
 
+
+                        <!-- =========================
+                         COMMENT
+                    ========================== -->
+
+                        <div class="mb-3">
+
+                            <label for="comment" class="review-label">
+                                Comment
+                            </label>
+
+
+                            <textarea name="review[comment]" id="comment" class="form-control review-comment"
+                                placeholder="Share your experience..." required></textarea>
+
+
+                            <div class="invalid-feedback">
+
+                                Please add some comment to submit a review.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Submit -->
+
+                        <button class="btn btn-dark px-4">
+
+                            Submit Review
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <% } %>
+
+
+                <!-- =========================
+         ALL REVIEWS
+    ========================== -->
+
+                <div class="reviews-section">
+
+                    <h2 class="reviews-title">
+                        Guest Reviews
+                    </h2>
+
+
+                    <% if (listing.reviews.length===0) { %>
+
+                        <div class="no-reviews">
+
+                            No reviews yet.
+                            Be the first to review this listing.
+
+                        </div>
+
+
+                        <% } else { %>
+
+
+                            <div class="row g-4">
+
+                                <% let count=1; %>
+
+
+                                    <% for(let rev of listing.reviews){ %>
+
+                                        <div class="col-md-6">
+
+                                            <div class="review-card">
+
+                                                <!-- Review number -->
+
+                                                <div class="review-number">
+
+                                                    Review <%= count %>
+
+                                                </div>
+
+
+                                                <!-- Author -->
+
+                                                <% if (rev.author) { %>
+
+                                                    <p class="review-author">
+
+                                                        <strong>
+                                                            Reviewed by:
+                                                        </strong>
+
+                                                        <%= rev.author.username %>
+
+                                                    </p>
+
+                                                    <% } %>
+
+
+                                                        <!-- =========================
+                                 STAR DISPLAY
+                            ========================== -->
+
+                                                        <div class="review-stars">
+
+                                                            <% for(let i=1; i <=5; i++) { %>
+
+                                                                <% if (i <=rev.rating) { %>
+
+                                                                    <span class="star-filled">
+                                                                        ★
+                                                                    </span>
+
+                                                                    <% } else { %>
+
+                                                                        <span class="star-empty">
+                                                                            ☆
+                                                                        </span>
+
+                                                                        <% } %>
+
+                                                                            <% } %>
+
+                                                                                <span class="rating-number">
+                                                                                    <%= rev.rating %>/5
+                                                                                </span>
+
+                                                        </div>
+
+
+                                                        <!-- Comment -->
+
+                                                        <p class="review-comment-text">
+
+                                                            <strong>
+                                                                Comment:
+                                                            </strong>
+
+                                                            <%= rev.comment %>
+
+                                                        </p>
+
+
+                                                        <!-- Delete review -->
+
+                                                        <% if ( currUser && rev.author &&
+                                                            rev.author._id.equals(currUser._id) ) { %>
+
+                                                            <div class="text-end">
+
+                                                                <form method="POST"
+                                                                    action="/listings/<%= listing._id %>/reviews/<%= rev._id %>?_method=DELETE">
+
+                                                                    <button class="btn btn-outline-danger btn-sm">
+
+                                                                        Delete
+
+                                                                    </button>
+
+                                                                </form>
+
+                                                            </div>
+
+                                                            <% } %>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <% count++; %>
+
+                                            <% } %>
+
+                            </div>
+
+                            <% } %>
+
+                </div>
+
     </div>
+
+
+    <!-- =========================
+     LEAFLET MAP
+========================== -->
+
+    <% if ( listing.locationCoordinates && listing.locationCoordinates.lat && listing.locationCoordinates.lng ) { %>
+
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+        <script>
+
+            const lat = <%= listing.locationCoordinates.lat %>;
+
+            const lng = <%= listing.locationCoordinates.lng %>;
+
+
+            const map = L.map("map").setView(
+                [lat, lng],
+                13
+            );
+
+
+            L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+                    attribution:
+                        "&copy; OpenStreetMap contributors"
+                }
+            ).addTo(map);
+
+
+            L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup(
+                    "<%= listing.title %>"
+                )
+                .openPopup();
+
+        </script>
+
+        <% } %>

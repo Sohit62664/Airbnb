@@ -1,83 +1,159 @@
-<% layout("/layouts/boilerplate")%>
+<% layout("/layouts/boilerplate") %>
 
-    <body>
+    <div class="listing-form-page">
 
-        <div class="container d-flex justify-content-center align-items-center min-vh-100">
-            <div class="w-50">
+        <div class="listing-form-card">
+
+            <!-- Header -->
+
+            <div class="listing-form-header">
+
+                <div class="listing-form-icon">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+
+                <h1 class="listing-form-title">
+                    Create a New Listing
+                </h1>
+
+                <p class="listing-form-subtitle">
+                    Share your place with the Wanderlust community.
+                </p>
+
+            </div>
 
 
+            <!-- Form -->
 
-                <h2 class="mb-4 text-center">
-                    Create New Listing
-                </h2>
+            <form action="/listings" method="POST" novalidate class="needs-validation">
 
-                <form action="/listings" method="post" novalidate class="needs-validation row">
+                <div class="row">
 
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label">Title</label>
 
-                        <input type="text" name="listing[title]" placeholder="Enter The Title" required
-                            class="form-control new-form">
+                    <!-- Title -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label for="title" class="listing-form-label">
+                            Title
+                        </label>
+
+                        <input type="text" name="listing[title]" id="title" placeholder="e.g. Beautiful Villa in Goa"
+                            class="listing-form-input" required>
+
+                        <div class="invalid-feedback">
+                            Please enter a title.
+                        </div>
+
                     </div>
 
 
+                    <!-- Price -->
 
-                    <div class="mb-3 col-md-6 ">
-                        <label class="form-label">Description</label>
+                    <div class="col-md-6 mb-3">
 
-                        <textarea name="listing[description]" placeholder="Enter The Description" rows="4" required
-                            class="form-control"></textarea>
+                        <label for="price" class="listing-form-label">
+                            Price per night
+                        </label>
 
+                        <input type="number" name="listing[price]" id="price" placeholder="e.g. 5000" min="0"
+                            class="listing-form-input" required>
+
+                        <div class="invalid-feedback">
+                            Please enter a valid price.
+                        </div>
 
                     </div>
 
 
+                    <!-- Description -->
 
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label">Image URL</label>
+                    <div class="col-12 mb-3">
 
-                        <input type="text" class="form-control" name="listing[image]" class="form-control"
-                            placeholder="Enter The Image URL">
+                        <label for="description" class="listing-form-label">
+                            Description
+                        </label>
+
+                        <textarea name="listing[description]" id="description" placeholder="Describe your place..."
+                            class="listing-form-input" required></textarea>
+
+                        <div class="invalid-feedback">
+                            Please enter a description.
+                        </div>
+
                     </div>
 
 
+                    <!-- Image -->
 
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label">Price</label>
+                    <div class="col-12 mb-3">
 
-                        <input type="number" class="form-control" name="listing[price]" placeholder="Enter The Price"
-                            required>
+                        <label for="image" class="listing-form-label">
+                            Image URL
+                        </label>
+
+                        <input type="url" name="listing[image]" id="image" placeholder="https://example.com/image.jpg"
+                            class="listing-form-input">
+
                     </div>
 
 
+                    <!-- Location -->
 
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label">Country</label>
+                    <div class="col-md-6 mb-3">
 
-                        <input type="text" class="form-control" name="listing[country]" placeholder="Enter Country Name"
-                            required>
+                        <label for="location" class="listing-form-label">
+                            Location
+                        </label>
+
+                        <input type="text" name="listing[location]" id="location" placeholder="e.g. Goa"
+                            class="listing-form-input" required>
+
+                        <div class="invalid-feedback">
+                            Please enter a location.
+                        </div>
+
                     </div>
 
 
+                    <!-- Country -->
 
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label">Location</label>
+                    <div class="col-md-6 mb-3">
 
-                        <input type="text" class="form-control" name="listing[location]"
-                            placeholder="Enter The Location" required>
+                        <label for="country" class="listing-form-label">
+                            Country
+                        </label>
+
+                        <input type="text" name="listing[country]" id="country" placeholder="e.g. India"
+                            class="listing-form-input" required>
+
+                        <div class="invalid-feedback">
+                            Please enter a country.
+                        </div>
+
                     </div>
 
 
-                    <div class="col-12">
-                        <button class="btn btn-outline-primary">
-                            Add Listing
+                    <!-- Submit -->
+
+                    <div class="col-12 mt-3">
+
+                        <button type="submit" class="listing-submit-btn">
+                            <i class="fa-solid fa-plus"></i>
+                            Create Listing
                         </button>
 
                     </div>
 
-                </form>
+                </div>
 
-            </div>
+            </form>
+
+
+            <a href="/listings" class="listing-back-link">
+                ← Back to listings
+            </a>
+
         </div>
 
-    </body>
+    </div>

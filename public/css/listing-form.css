@@ -1,0 +1,202 @@
+/* =========================
+   LISTING FORM PAGE
+========================= */
+
+.listing-form-page {
+    min-height: calc(100vh - 5rem);
+
+    padding: 3rem 1rem 5rem;
+}
+
+
+/* =========================
+   FORM CARD
+========================= */
+
+.listing-form-card {
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    background-color: #ffffff;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 1.25rem;
+
+    padding: 2.5rem;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.listing-form-header {
+    text-align: center;
+
+    margin-bottom: 2rem;
+}
+
+.listing-form-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 1rem;
+
+    border-radius: 50%;
+
+    background-color: #fff1f2;
+
+    color: #fe424d;
+
+    font-size: 1.4rem;
+}
+
+.listing-form-title {
+    font-size: 1.8rem;
+
+    font-weight: 700;
+
+    margin-bottom: 0.4rem;
+}
+
+.listing-form-subtitle {
+    color: #777777;
+
+    font-size: 0.9rem;
+
+    margin: 0;
+}
+
+
+/* =========================
+   LABEL
+========================= */
+
+.listing-form-label {
+    display: block;
+
+    font-size: 0.9rem;
+
+    font-weight: 600;
+
+    margin-bottom: 0.5rem;
+}
+
+
+/* =========================
+   INPUT
+========================= */
+
+.listing-form-input {
+    width: 100%;
+
+    padding: 0.75rem 0.9rem;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 0.65rem;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.listing-form-input:focus {
+    border-color: #222222;
+
+    box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.08);
+}
+
+
+/* Textarea */
+
+textarea.listing-form-input {
+    min-height: 130px;
+
+    resize: vertical;
+}
+
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+
+.listing-submit-btn {
+    width: 100%;
+
+    border: none;
+
+    background-color: #222222;
+
+    color: #ffffff;
+
+    padding: 0.8rem 1.2rem;
+
+    border-radius: 0.65rem;
+
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+.listing-submit-btn:hover {
+    background-color: #000000;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   BACK LINK
+========================= */
+
+.listing-back-link {
+    display: block;
+
+    text-align: center;
+
+    margin-top: 1rem;
+
+    color: #777777;
+
+    text-decoration: none;
+
+    font-size: 0.9rem;
+}
+
+.listing-back-link:hover {
+    color: #222222;
+
+    text-decoration: underline;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .listing-form-page {
+        padding: 2rem 1rem 4rem;
+    }
+
+    .listing-form-card {
+        padding: 1.5rem;
+    }
+
+    .listing-form-title {
+        font-size: 1.5rem;
+    }
+
+}
