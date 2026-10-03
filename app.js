@@ -121,7 +121,15 @@ app.use("/", userRoute)
 //Show rout 
 app.get("/listings/:id", async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews").populate("owner");
+    // const listing = await Listing.findById(id).populate("reviews").populate("owner");
+    const listing = await Listing.findById(id)
+        .populate("owner")
+        .populate({
+            path: "reviews",
+            populate: {
+                path: "author"
+            }
+        });
     res.render("listings/show.ejs", { listing });
 });
 

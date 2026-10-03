@@ -1,34 +1,40 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+
 // Creating Schema
 const listingSchema = new Schema({
     title: {
         type: String,
-        required: true,
+        required: true
     },
 
     description: {
-        type: String,
+        type: String
     },
 
     image: {
         type: String,
-        default:
-            "https://cdn.confident-group.com/wp-content/uploads/2025/01/09175702/villa-cover.jpg",
+        default: "https://cdn.confident-group.com/wp-content/uploads/2025/01/09175702/villa-cover.jpg"
     },
 
     price: {
-        type: Number,
+        type: Number
     },
 
     location: {
-        type: String,
+        type: String
     },
 
     country: {
-        type: String,
+        type: String
     },
+
+    locationCoordinates: {
+        lat: Number,
+        lng: Number
+    },
+
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
@@ -38,8 +44,8 @@ const listingSchema = new Schema({
         {
             type: Schema.Types.ObjectId,
             ref: "Review"
-        },
-    ],
+        }
+    ]
 });
 
 // Creating model using Schema

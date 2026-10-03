@@ -1,5 +1,16 @@
 <% layout("/layouts/boilerplate")%>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        #map img {
+            max-width: none !important;
+        }
+    </style>
     <div class="container mt-5">
 
         <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
@@ -76,76 +87,165 @@
 
                     <% } %>
 
+
+
+                        <% if (currUser) { %>
+
+                            <% const isFavorite=currUser.favorites.some( fav=> fav.toString() === listing._id.toString()
+                                ); %>
+
+                                <% if (isFavorite) { %>
+
+                                    <form method="POST" action="/listings/<%= listing._id %>/favorite?_method=DELETE">
+
+                                        <button class="btn btn-danger d-flex gap-3 mt-4">
+                                            ♥ Remove from Favorites
+                                        </button>
+
+                                    </form>
+
+                                    <% } else { %>
+
+                                        <form method="POST" action="/listings/<%= listing._id %>/favorite">
+
+                                            <button class="btn btn-outline-danger mt-4">
+                                                ♡ Add to Favorites
+                                            </button>
+
+                                        </form>
+
+                                        <% } %>
+
+                                            <% } %>
+
+
             </div>
 
         </div>
-        <hr>
-        <div class="coll-8 offset-3">
-            <h4>Leave a Review</h4>
+        <% if (listing.locationCoordinates && listing.locationCoordinates.lat && listing.locationCoordinates.lng) { %>
 
-            <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate class="needs-validation">
-                <div class="mmb-3 mt-8">
-                    <label for="rating">Ratings</label>
-                    <input type="range" min="1" max="5" id="rating" name="review[rating]">
+            <hr class="my-5">
 
-                    <label for="comment" class="form-control">Comment</label>
-                    <textarea name="review[comment]" id="comment" rows="4" cols="50" class="form-control"
-                        required></textarea>
-                    <div class="invalid-feedback">Please add some comment to sumbmit Review</div>
-                    <button class="d-flex gap-3 mt-4">Submit</button>
+            <h3 class="mb-3">Location</h3>
+
+            <div id="map" class="rounded-3 shadow-sm" style="height: 400px; width: 100%;">
+            </div>
+
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+            <script>
+                const lat = <%= listing.locationCoordinates.lat %>;
+                const lng = <%= listing.locationCoordinates.lng %>;
+
+                const map = L.map("map").setView([lat, lng], 13);
+
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+
+                L.marker([lat, lng])
+                    .addTo(map)
+                    .bindPopup("<%= listing.title %>")
+                    .openPopup();
+            </script>
+
+            <% } else { %>
+
+                <hr class="my-5">
+
+                <h3 class="mb-3">Location</h3>
+
+                <div class="alert alert-warning">
+                    Location map is not available for this listing.
                 </div>
-            </form>
-        </div>
 
-        <hr>
+                <% } %>
+                    <div class="coll-8 offset-3">
+                        <h4>Leave a Review</h4>
 
+                        <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate
+                            class="needs-validation">
+                            <div class="mmb-3 mt-8">
+                                <label for="rating">Ratings</label>
+                                <input type="range" min="1" max="5" id="rating" name="review[rating]">
 
-
-        <!-- <h4>All Reviews</h4> -->
-
-        <h4 class="mb-3">All Reviews</h4>
-
-        <% let count=1; %>
-
-            <div class="row">
-                <% for(let rev of listing.reviews){ %>
-
-                    <div class="col-md-6 mb-3">
-                        <div class="card shadow-sm ">
-                            <div class="card-body" style="margin-left: 1%;">
-
-                                <h5 class="card-title">
-                                    Review <%= count %>
-                                </h5>
-
-                                <p class="card-text">
-                                    <strong>Rating:</strong>
-                                    <span class="badge bg-success">
-                                        <%= rev.rating %> ★
-                                    </span>
-                                </p>
-
-                                <p class="card-text">
-                                    <strong>Comment:</strong>
-                                    <%= rev.comment %>
-                                </p>
-
-                                <div class="d-flex justify-content-end me-3">
-                                    <form method="POST"
-                                        action="/listings/<%= listing._id %>/reviews/<%= rev._id %>?_method=DELETE">
-                                        <button class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
-                                </div>
+                                <label for="comment" class="form-control">Comment</label>
+                                <textarea name="review[comment]" id="comment" rows="4" cols="50" class="form-control"
+                                    required></textarea>
+                                <div class="invalid-feedback">Please add some comment to sumbmit Review</div>
+                                <button class="d-flex gap-3 mt-4">Submit</button>
                             </div>
-
-
-                        </div>
+                        </form>
                     </div>
 
-                    <% count++; %>
+                    <hr>
 
-                        <% } %>
-            </div>
 
+
+
+
+
+                    <!-- <h4>All Reviews</h4> -->
+
+                    <h4 class="mb-3">All Reviews</h4>
+
+                    <% let count=1; %>
+
+                        <div class="row">
+                            <% for(let rev of listing.reviews){ %>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="card shadow-sm">
+                                        <div class="card-body" style="margin-left: 1%;">
+
+                                            <h5 class="card-title">
+                                                Review <%= count %>
+                                            </h5>
+
+                                            <!-- Review Author -->
+                                            <% if (rev.author) { %>
+                                                <p class="card-text">
+                                                    <strong>Reviewed by:</strong>
+                                                    <%= rev.author.username %>
+                                                </p>
+                                                <% } %>
+
+                                                    <p class="card-text">
+                                                        <strong>Rating:</strong>
+                                                        <span class="badge bg-success">
+                                                            <%= rev.rating %> ★
+                                                        </span>
+                                                    </p>
+
+                                                    <p class="card-text">
+                                                        <strong>Comment:</strong>
+                                                        <%= rev.comment %>
+                                                    </p>
+
+                                                    <!-- Delete only for review author -->
+                                                    <% if (currUser && rev.author &&
+                                                        rev.author._id.equals(currUser._id)) { %>
+
+                                                        <div class="d-flex justify-content-end me-3">
+                                                            <form method="POST"
+                                                                action="/listings/<%= listing._id %>/reviews/<%= rev._id %>?_method=DELETE">
+
+                                                                <button class="btn btn-danger btn-sm">
+                                                                    Delete
+                                                                </button>
+
+                                                            </form>
+                                                        </div>
+
+                                                        <% } %>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <% count++; %>
+
+                                    <% } %>
+                        </div>
 
     </div>

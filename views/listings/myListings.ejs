@@ -1,0 +1,62 @@
+<% layout("/layouts/boilerplate")%>
+    <div class="container mt-4">
+
+        <h2>My Listings</h2>
+
+        <% if (myListings.length===0) { %>
+
+            <p>You haven't created any listings yet.</p>
+
+            <a href="/listings/new" class="btn btn-dark">
+                Create Listing
+            </a>
+
+            <% } else { %>
+
+                <div class="row">
+
+                    <% for (let listing of myListings) { %>
+
+                        <div class="col-md-4 mb-4">
+
+                            <div class="card">
+
+                                <img src="<%= listing.image %>" class="card-img-top"
+                                    style="height: 200px; object-fit: cover;">
+
+                                <div class="card-body">
+
+                                    <h5 class="card-title">
+                                        <%= listing.title %>
+                                    </h5>
+
+                                    <p>
+                                        <%= listing.location %>,
+                                            <%= listing.country %>
+                                    </p>
+
+                                    <p>
+                                        ₹<%= listing.price %> / night
+                                    </p>
+
+                                    <a href="/listings/<%= listing._id %>" class="btn btn-primary">
+                                        View
+                                    </a>
+
+                                    <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">
+                                        Edit
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <% } %>
+
+                </div>
+
+                <% } %>
+
+    </div>

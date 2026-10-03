@@ -1,0 +1,112 @@
+<% layout("layouts/boilerplate") %>
+    <div class="container mt-5">
+
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">
+                    <i class="bi bi-heart-fill text-danger"></i>
+                    My Favorites
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Your saved listings
+                </p>
+            </div>
+
+            <span class="badge bg-dark rounded-pill px-3 py-2">
+                <%= favorites.length %> Saved
+            </span>
+        </div>
+
+
+        <% if (favorites.length===0) { %>
+
+            <!-- Empty State -->
+            <div class="card border-0 shadow-sm text-center py-5">
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+                        <i class="bi bi-heart text-danger" style="font-size: 4rem;"></i>
+                    </div>
+
+                    <h4 class="fw-semibold">
+                        No favorites yet
+                    </h4>
+
+                    <p class="text-muted">
+                        Start exploring listings and save the ones you love.
+                    </p>
+
+                    <a href="/listings" class="btn btn-dark px-4">
+                        Explore Listings
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <% } else { %>
+
+
+                <!-- Favorites Grid -->
+                <div class="row g-4">
+
+                    <% for (let listing of favorites) { %>
+
+                        <div class="col-sm-6 col-lg-4">
+
+                            <div class="card h-100 border-0 shadow-sm overflow-hidden">
+
+                                <!-- Image -->
+                                <img src="<%= listing.image %>" class="card-img-top" alt="<%= listing.title %>"
+                                    style="height: 220px; object-fit: cover;">
+
+                                <div class="card-body d-flex flex-column">
+
+                                    <!-- Title -->
+                                    <h5 class="card-title fw-bold mb-2">
+                                        <%= listing.title %>
+                                    </h5>
+
+                                    <!-- Location -->
+                                    <p class="text-muted mb-2">
+                                        <i class="bi bi-geo-alt-fill"></i>
+                                        <%= listing.location %>,
+                                            <%= listing.country %>
+                                    </p>
+
+                                    <!-- Price -->
+                                    <p class="mb-3">
+                                        <strong>
+                                            ₹<%= listing.price %>
+                                        </strong>
+                                        <span class="text-muted">
+                                            / night
+                                        </span>
+                                    </p>
+
+                                    <!-- Button -->
+                                    <div class="mt-auto">
+
+                                        <a href="/listings/<%= listing._id %>" class="btn btn-dark w-100">
+                                            View Listing
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <% } %>
+
+                </div>
+
+                <% } %>
+
+    </div>
