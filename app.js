@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const ejsMate = require("ejs-mate");
 const Listing = require("./models/listing.js");
@@ -15,7 +16,7 @@ const userRoute = require("./routes/user.js");
 const flash = require("connect-flash"); // for flash message(once in a session)
 
 const sessionOptions = {
-    secret: "mySuperSecreteCode",
+    secret: process.env.WANDERLUST_SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -65,7 +66,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 // Connecting Databaces 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.MONGO_URI;
 
 // calling to the main Function 
 main().then(() => {
@@ -161,6 +162,8 @@ app.get("/privacy", (req, res) => {
 app.get("/terms", (req, res) => {
     res.render("terms.ejs");
 });
-app.listen(8080, () => {
-    console.log("Server is listning on port 8080 ");
-})
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+});
